@@ -24,8 +24,7 @@
     "@radix-ui/react-input": "^1.0.0",
     "@radix-ui/react-textarea": "^1.1.0",
     "@radix-ui/react-button": "^1.1.0",
-    "@radix-ui/react-card": "^1.1.0",
-    "@radix-ui/react-badge": "^1.0.0"
+    "@radix-ui/react-card": "^1.1.0"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
