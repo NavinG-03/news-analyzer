@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { analyzeText } from '../../services/connectanalyzer';
+import { analyzeText } from '@/services/connectanalyzer';
 import ResultCard from '../ResultCard';
-import { toast } from "@radix-ui/react-toast";
+import { toast } from 'sonner';
 
 const NewsAnalyzer: React.FC = () => {
   const [title, setTitle] = useState<string>('');
@@ -69,7 +69,8 @@ const NewsAnalyzer: React.FC = () => {
             onClick={handleAnalyze}
             disabled={isAnalyzing}
             className={`px-4 py-2 rounded-md text-white font-medium ${
-              isAnalyzing ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+              isAnalyzing ? 'bg-gray-4
+00 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
             }`}
           >
             {isAnalyzing ? 'Analyzing...' : 'Analyze'}
