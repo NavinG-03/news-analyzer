@@ -1,4 +1,4 @@
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@radix-ui/react-progress";
 import { AlertCircle, CheckCircle, Flag, Info, Percent } from 'lucide-react';
 import AnalysisDetails from './AnalysisDetails';
 
