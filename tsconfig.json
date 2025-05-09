@@ -15,7 +15,8 @@
       "@/components/*": ["client/components/*"],
       "@/services/*": ["client/services/*"]
     },
-    "types": ["node", "react", "react-dom", "lucide-react", "sonner"]
+    "types": ["node", "react", "react-dom", "lucide-react", "sonner"],
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
