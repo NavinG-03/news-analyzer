@@ -1,24 +1,26 @@
-import { toast } from 'sonner';
+import axios from 'axios';
 
-export const analyzeText = async (title: string, content: string) => {
+export interface AnalysisResult {
+  credibilityScore: number;
+  classification: string;
+  isFakeNews: boolean;
+  accuracyConfidence: number;
+  warningFlags: string[];
+  emotionalLanguage: number;
+  factualConsistency: number;
+  sourceReputation: number;
+  titleCredibility: number;
+}
+
+export const analyzeNews = async (title: string, content: string): Promise<AnalysisResult> => {
   try {
-    const response = await fetch('http://localhost:3001/analyze', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, content }),
+    const response = await axios.post('http://localhost:3000/analyze', {
+      title,
+      content,
     });
-
-    if (!response.ok) {
-      throw new Error('Failed to analyze content');
-    }
-
-    const result = await response.json();
-    return result;
+    return response.data;
   } catch (error) {
-    console.error('Error analyzing text:', error);
-    toast.error('Failed to analyze content. Please try again.');
-    throw error;
+    console.error('Error analyzing news:', error);
+    throw new Error('Failed to analyze news');
   }
 };
