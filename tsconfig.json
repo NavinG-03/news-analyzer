@@ -7,7 +7,7 @@
     "checkJs": true,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "rootDir": "./",
+    "rootDir": "./src",              // Changed to 'src' for better directory structure
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "server.ts"],
+  "include": ["src/**/*"],            // 'server.ts' isn't necessary if it's in 'src'
   "exclude": ["node_modules"]
 }
