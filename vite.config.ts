@@ -7,12 +7,12 @@ export default defineConfig({
   plugins: [
     react(),
     NodeGlobalsPolyfillPlugin({
-      crypto: true,
+      buffer: true,
     }),
   ],
   resolve: {
     alias: {
-      crypto: 'crypto-browserify',
+      '@': '/src',
     },
   },
 });
