@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { analyzeNews, AnalysisResult } from '@/services/connectanalyzer';
-import ResultCard from '../ResultCard';
+import ResultCard from './ResultCard';
 
 const NewsAnalyzer: React.FC = () => {
   const [title, setTitle] = useState('');
