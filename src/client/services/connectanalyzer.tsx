@@ -14,7 +14,7 @@ export interface AnalysisResult {
 
 export const analyzeNews = async (title: string, content: string): Promise<AnalysisResult> => {
   try {
-    const response = await axios.post('http://localhost:3000/analyze', {
+    const response = await axios.post('https://<codespace-name>-3000.app.github.dev/analyze', {
       title,
       content,
     });
