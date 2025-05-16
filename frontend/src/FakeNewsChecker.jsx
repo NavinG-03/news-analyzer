@@ -64,9 +64,9 @@ function FakeNewsChecker() {
         </button>
       </form>
 
-      {prediction && (
+      {prediction !== null && (
         <div style={{ marginTop: 20, fontWeight: "bold" }}>
-          Prediction: {prediction}
+          Prediction: {prediction === 1 ? "Fake News" : "Real News"}
         </div>
       )}
 
