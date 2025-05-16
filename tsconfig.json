@@ -1,22 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "allowJs": true,
-    "checkJs": true,
     "jsx": "react-jsx",
-    "outDir": "./dist",
-    "rootDir": "./src",              // Changed to 'src' for better directory structure
     "strict": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
+    "outDir": "dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "moduleResolution": "node"
   },
-  "include": ["src/**/*"],            // 'server.ts' isn't necessary if it's in 'src'
+  "include": ["src", "server.ts"],
   "exclude": ["node_modules"]
 }
