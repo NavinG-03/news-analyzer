@@ -2,7 +2,7 @@
   "name": "news-analyzer",
   "version": "1.0.0",
   "scripts": {
-    "kill-ports": "kill -9 $(lsof -t -i:3000) $(lsof -t -i:5173) || true",
+    ""kill-ports": "lsof -t -i:3000 | xargs -r kill -9 && lsof -t -i:5173 | xargs -r kill -9 || true",",
     "dev": "npm run kill-ports && concurrently \"npm run start:server\" \"npm run start:client\"",
     "start:client": "vite",
     "start:server": "tsc && node dist/server/server.js",
