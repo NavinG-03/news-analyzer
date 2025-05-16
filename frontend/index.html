@@ -40,46 +40,61 @@
   <label for="text">News Content:</label>
   <textarea id="text" rows="6" placeholder="Enter news content"></textarea>
 
-  <button onclick="predict()">Check News</button>
+  <button type="button" onclick="predict()">Check News</button>
 
   <div id="result"></div>
-  <script type="module" src="/src/main.jsx"></script>
 
-<script>
-  async function predict() {
-    const title = document.getElementById('title').value.trim();
-    const text = document.getElementById('text').value.trim();
-    const resultDiv = document.getElementById('result');
-    resultDiv.textContent = '';
+  <script>
+    async function predict() {
+      const title = document.getElementById('title').value.trim();
+      const text = document.getElementById('text').value.trim();
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = '';
+      resultDiv.style.color = 'black';
 
-    if (!title || !text) {
-      resultDiv.textContent = 'Please enter both title and content.';
-      resultDiv.style.color = 'red';
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:8000/predict', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, text })
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.detail || 'API error');
+      if (!title || !text) {
+        resultDiv.textContent = 'Please enter both title and content.';
+        resultDiv.style.color = 'red';
+        return;
       }
 
-      const data = await response.json();
-      const prediction = data.prediction;
+      try {
+        const response = await fetch('http://localhost:8000/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, text }),
+        });
 
-      resultDiv.textContent = `Prediction: ${prediction}`;
-      resultDiv.style.color = prediction === 'FAKE' ? 'red' : 'green';
-    } catch (err) {
-      resultDiv.textContent = `Error: ${err.message}`;
-      resultDiv.style.color = 'red';
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.detail || 'API error');
+        }
+
+        const data = await response.json();
+        const prediction = data.prediction;
+
+        let displayText = '';
+        let color = 'black';
+
+        if (prediction === 1 || prediction === '1' || prediction.toString().toLowerCase() === 'fake') {
+          displayText = 'Fake News';
+          color = 'red';
+        } else if (prediction === 0 || prediction === '0' || prediction.toString().toLowerCase() === 'real') {
+          displayText = 'Real News';
+          color = 'green';
+        } else {
+          displayText = `Unknown prediction: ${prediction}`;
+          color = 'orange';
+        }
+
+        resultDiv.textContent = `Prediction: ${displayText}`;
+        resultDiv.style.color = color;
+
+      } catch (err) {
+        resultDiv.textContent = `Error: ${err.message}`;
+        resultDiv.style.color = 'red';
+      }
     }
-  }
-</script>
+  </script>
 </body>
 </html>
