@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fake News Detector</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  label {
+    font-weight: bold;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0 16px;
+    box-sizing: border-box;
+  }
+  button {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  #result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <h1>Fake News Detector</h1>
+
+  <label for="title">News Title:</label>
+  <input type="text" id="title" placeholder="Enter news title" />
+
+  <label for="text">News Content:</label>
+  <textarea id="text" rows="6" placeholder="Enter news content"></textarea>
+
+  <button onclick="predict()">Check News</button>
+
+  <div id="result"></div>
+
+<script>
+  async function predict() {
+    const title = document.getElementById('title').value.trim();
+    const text = document.getElementById('text').value.trim();
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = '';
+
+    if (!title || !text) {
+      resultDiv.textContent = 'Please enter both title and content.';
+      resultDiv.style.color = 'red';
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, text })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'API error');
+      }
+
+      const data = await response.json();
+      const prediction = data.prediction;
+
+      resultDiv.textContent = `Prediction: ${prediction}`;
+      resultDiv.style.color = prediction === 'FAKE' ? 'red' : 'green';
+    } catch (err) {
+      resultDiv.textContent = `Error: ${err.message}`;
+      resultDiv.style.color = 'red';
+    }
+  }
+</script>
+</body>
+</html>
