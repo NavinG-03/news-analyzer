@@ -14,7 +14,7 @@ function FakeNewsChecker() {
     setError(null);
 
     try {
-      const response = await fetch("https://psychic-disco-69wqw95wj67qf5xp-8000.app.github.dev/", {
+      const response = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,9 +64,9 @@ function FakeNewsChecker() {
         </button>
       </form>
 
-      {prediction !== null && (
+      {prediction && (
         <div style={{ marginTop: 20, fontWeight: "bold" }}>
-          Prediction: {prediction === 1 ? "Fake News" : "Real News"}
+          Prediction: {prediction}
         </div>
       )}
 
