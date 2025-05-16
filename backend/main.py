@@ -30,7 +30,7 @@ def load_and_train_model():
     X_train, _, y_train, _ = train_test_split(df["content"], df["label"], test_size=0.2, random_state=42)
     model = Pipeline([
         ('tfidf', TfidfVectorizer(max_features=5000)),
-        ('clf', LogisticRegression())
+        ('clf', LogisticRegression(max_iter=1000))
     ])
     model.fit(X_train, y_train)
     print("Model training completed.")
@@ -50,4 +50,3 @@ def predict(news: NewsItem):
     content = news.title + " " + news.text
     prediction = model.predict([content])[0]
     return {"prediction": prediction}
-
