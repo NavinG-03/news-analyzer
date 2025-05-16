@@ -1,67 +1,82 @@
-
 import React, { useState } from "react";
 
-export default function FakeNewsChecker() {
+function FakeNewsChecker() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [result, setResult] = useState(null);
+  const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setResult(null);
+    setPrediction(null);
+    setError(null);
 
     try {
       const response = await fetch("http://localhost:8000/predict", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ title, text }),
       });
 
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
       const data = await response.json();
-      setResult(data.prediction);
+      setPrediction(data.prediction);
     } catch (err) {
-      setResult("Error: Could not get prediction");
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
+    <div style={{ maxWidth: 600, margin: "auto" }}>
       <h2>Fake News Checker</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title:</label><br />
+          <label>News Title:</label><br />
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            style={{ width: "100%" }}
+            style={{ width: "100%", padding: 8, marginBottom: 12 }}
           />
         </div>
-        <div style={{ marginTop: 10 }}>
-          <label>Text:</label><br />
+        <div>
+          <label>News Content:</label><br />
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             required
             rows={6}
-            style={{ width: "100%" }}
+            style={{ width: "100%", padding: 8, marginBottom: 12 }}
           />
         </div>
-        <button type="submit" disabled={loading} style={{ marginTop: 10 }}>
+        <button type="submit" disabled={loading} style={{ padding: "10px 20px" }}>
           {loading ? "Checking..." : "Check"}
         </button>
       </form>
 
-      {result && (
-        <div style={{ marginTop: 20 }}>
-          <strong>Prediction:</strong> {result.toUpperCase()}
+      {prediction && (
+        <div style={{ marginTop: 20, fontWeight: "bold" }}>
+          Prediction: {prediction}
+        </div>
+      )}
+
+      {error && (
+        <div style={{ marginTop: 20, color: "red" }}>
+          Error: {error}
         </div>
       )}
     </div>
   );
 }
+
+export default FakeNewsChecker;
