@@ -1,3 +1,7 @@
 streamlit
 pandas
 scikit-learn
+TfidfVectorizer
+LogisticRegression
+Pipeline
+train_test_split
