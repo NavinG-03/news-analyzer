@@ -9,7 +9,7 @@ import os
 # Load and train model function
 @st.cache_resource
 def load_and_train_model():
-    dataset_path = os.path.join(os.path.dirname(__file__), "fake_news_dataset_50k.csv")
+    dataset_path =("fake_news_dataset_50k.csv")
     df = pd.read_csv(dataset_path)
     if "title" not in df.columns or "text" not in df.columns or "label" not in df.columns:
         st.error("CSV file must have 'title', 'text', and 'label' columns.")
