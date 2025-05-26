@@ -20,12 +20,10 @@ This project is a web-based application for detecting fake news using machine le
 
 ## Quickstart
 
-### 1. Install Requirements
-
-You need Python 3.10. Install dependencies using:
+### 1. Install Streamlit
 
 ```bash
-pip install -r requirements
+pip install streamlit
 ```
 
 ### 2. Run the Application
