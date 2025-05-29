@@ -8,6 +8,7 @@ from sklearn.metrics import classification_report
 from sklearn.utils import resample
 
 # Title
+st.title("⚖️ TruthGuard")
 st.title("📰 Fake News Detector")
 
 # Load dataset
