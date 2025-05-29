@@ -29,7 +29,7 @@ pip install streamlit
 ### 2. Run the Application
 
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 The app will open in your browser. You can enter a news title and content to receive a fake/real prediction.
